@@ -183,6 +183,25 @@
   transform: scale(1.08);
 }
 
+.platforms-hero-background .wireframe-image {
+  opacity: 0.92;
+  object-position: center bottom;
+  transform: scale(1.02);
+}
+
+.platforms-hero-background::before {
+  background:
+    linear-gradient(90deg, hsl(0 0% 100% / 0.04) 1px, transparent 1px),
+    linear-gradient(hsl(0 0% 100% / 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.platforms-hero-background::after {
+  background:
+    linear-gradient(90deg, hsl(137 72% 9% / 0.54), hsl(135 64% 19% / 0.2) 48%, hsl(132 10% 12% / 0.32)),
+    radial-gradient(circle at 78% 58%, hsl(80 52% 46% / 0.18), transparent 30rem);
+}
+
 .motion-reveal {
   --motion-delay: 0ms;
   opacity: 0;

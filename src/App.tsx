@@ -504,8 +504,8 @@ function PlatformsPage() {
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative overflow-hidden border-b border-white/10 bg-primary-dark text-white">
-          <WireframeLandscape compact />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,40,20,0.92),rgba(17,78,32,0.72)_52%,rgba(8,18,13,0.82))]" />
+          <WireframeLandscape className="platforms-hero-background" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,40,20,0.88),rgba(17,78,32,0.5)_52%,rgba(8,18,13,0.42))]" />
           <div className="container relative z-10 py-16 md:py-20">
             <Button variant="secondary" onClick={() => navigateToHomeSection("infraestrutura")}>
               <ArrowLeft className="h-4 w-4" />
