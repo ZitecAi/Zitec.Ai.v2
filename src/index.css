@@ -1,0 +1,235 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 80 14% 96%;
+    --foreground: 132 7% 29%;
+
+    --primary: 135 64% 19%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 134 61% 23%;
+    --primary-light: 80 52% 46%;
+    --primary-dark: 132 10% 14%;
+
+    --secondary: 0 0% 100%;
+    --secondary-foreground: 132 7% 29%;
+
+    --accent: 80 52% 46%;
+    --accent-foreground: 132 10% 14%;
+
+    --muted: 90 13% 91%;
+    --muted-foreground: 132 7% 39%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 132 7% 29%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 132 7% 29%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 120 10% 86%;
+    --input: 120 10% 88%;
+    --ring: 80 52% 46%;
+
+    --radius: 0.5rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(135 64% 19%), hsl(132 61% 27%));
+    --gradient-dark: linear-gradient(160deg, hsl(132 10% 14%), hsl(135 64% 19%) 58%, hsl(132 7% 29%));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(80 14% 96%));
+
+    --shadow-sm: 0 1px 2px hsl(132 10% 14% / 0.05);
+    --shadow-md: 0 10px 24px hsl(132 10% 14% / 0.08);
+    --shadow-lg: 0 18px 40px hsl(132 10% 14% / 0.12);
+    --shadow-xl: 0 28px 70px hsl(132 10% 14% / 0.18);
+    --shadow-glow: 0 0 28px hsl(80 52% 46% / 0.24);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Roboto Condensed", system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: hsl(var(--accent) / 0.28);
+  }
+}
+
+@layer components {
+  .section-spacing {
+    @apply py-20 lg:py-28;
+    scroll-margin-top: 5rem;
+  }
+
+  .section-kicker {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary;
+  }
+
+  .section-title {
+    @apply text-3xl font-bold uppercase leading-tight text-foreground md:text-5xl;
+  }
+
+  .premium-card {
+    @apply relative overflow-hidden border-border bg-gradient-card shadow-md transition duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-xl;
+  }
+
+  .metric-tile {
+    @apply h-full rounded-lg border border-white/10 bg-white/[0.06] p-6 backdrop-blur-md;
+  }
+
+  .hero-brand-logo {
+    @apply h-auto max-h-56 w-auto max-w-full drop-shadow-sm md:max-h-64 lg:max-h-72;
+    image-rendering: auto;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .platform-logo-filter {
+    filter: grayscale(1) saturate(0) contrast(1.18);
+    opacity: 0.82;
+    transition:
+      filter 0.3s ease,
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .group:hover .platform-logo-filter {
+    filter: grayscale(0) saturate(1) contrast(1);
+    opacity: 1;
+    transform: scale(1.02);
+  }
+
+  .social-link {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-md bg-primary text-primary-foreground transition hover:bg-primary-hover;
+  }
+}
+
+.dark-grid-pattern {
+  background-image:
+    linear-gradient(hsl(0 0% 100% / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(0 0% 100% / 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+.wireframe-landscape {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 26% 28%, hsl(80 52% 46% / 0.18), transparent 32rem),
+    linear-gradient(180deg, hsl(137 72% 9%), hsl(136 63% 14%) 48%, hsl(132 10% 12%));
+}
+
+.wireframe-landscape::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, hsl(0 0% 100% / 0.025) 1px, transparent 1px),
+    linear-gradient(hsl(0 0% 100% / 0.025) 1px, transparent 1px);
+  background-size: 96px 96px;
+  mask-image: linear-gradient(180deg, transparent 0%, black 22%, black 100%);
+  z-index: 2;
+}
+
+.wireframe-landscape::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background:
+    linear-gradient(90deg, hsl(137 72% 9% / 0.78), hsl(135 64% 19% / 0.34) 48%, hsl(132 10% 12% / 0.74)),
+    radial-gradient(circle at 72% 68%, hsl(80 52% 46% / 0.18), transparent 28rem);
+  mix-blend-mode: multiply;
+}
+
+.wireframe-image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(1) saturate(2.9) hue-rotate(52deg) brightness(0.62) contrast(1.28);
+  opacity: 0.78;
+  mix-blend-mode: screen;
+}
+
+.wireframe-color {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: hsl(135 64% 19% / 0.36);
+  mix-blend-mode: color;
+}
+
+.wireframe-landscape-compact .wireframe-image {
+  opacity: 0.66;
+  transform: scale(1.08);
+}
+
+.motion-reveal {
+  --motion-delay: 0ms;
+  opacity: 0;
+  filter: blur(10px);
+  transform: translate3d(0, 28px, 0) scale(0.985);
+  transition:
+    opacity 0.72s cubic-bezier(0.16, 1, 0.3, 1) var(--motion-delay),
+    transform 0.72s cubic-bezier(0.16, 1, 0.3, 1) var(--motion-delay),
+    filter 0.72s cubic-bezier(0.16, 1, 0.3, 1) var(--motion-delay);
+  will-change: opacity, transform, filter;
+}
+
+.motion-reveal-left {
+  transform: translate3d(-36px, 0, 0) scale(0.985);
+}
+
+.motion-reveal-right {
+  transform: translate3d(36px, 0, 0) scale(0.985);
+}
+
+.motion-reveal-down {
+  transform: translate3d(0, -24px, 0) scale(0.985);
+}
+
+.motion-reveal-zoom {
+  transform: translate3d(0, 16px, 0) scale(0.94);
+}
+
+.motion-reveal-none {
+  transform: none;
+}
+
+.motion-reveal.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .motion-reveal {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
