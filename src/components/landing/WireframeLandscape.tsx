@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { assetPath } from "@/lib/assets";
 
 interface WireframeLandscapeProps {
   className?: string;
@@ -8,7 +9,9 @@ interface WireframeLandscapeProps {
 export function WireframeLandscape({ className, compact = false }: WireframeLandscapeProps) {
   return (
     <div className={cn("wireframe-landscape", compact && "wireframe-landscape-compact", className)} aria-hidden="true">
-      <img className="wireframe-image" src="/images/background-zisign.gif" alt="" loading="eager" />
+      <video className="wireframe-image" autoPlay muted loop playsInline preload="auto">
+        <source src={assetPath("images/zisign-logo.webm")} type="video/webm" />
+      </video>
       <div className="wireframe-color" />
     </div>
   );

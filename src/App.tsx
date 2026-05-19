@@ -25,6 +25,7 @@ import { MotionReveal } from "@/components/landing/Motion";
 import { WireframeLandscape } from "@/components/landing/WireframeLandscape";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { assetPath } from "@/lib/assets";
 
 const navItems = [
   { label: "Quem Somos", target: "quem-somos" },
@@ -80,7 +81,7 @@ const platforms = [
     name: "ZiGestão",
     domain: "zigestao.zitec.ai",
     url: "https://zigestao.zitec.ai",
-    logo: "/images/platforms/zigestao-logo.png",
+    logo: assetPath("images/platforms/zigestao-logo.png"),
     logoClassName: "max-h-12 max-w-full object-contain",
     description: "Plataforma para gestão operacional, controle e acompanhamento de fundos.",
   },
@@ -88,7 +89,7 @@ const platforms = [
     name: "ZiSign",
     domain: "zisign.ai",
     url: "https://zisign.ai",
-    logo: "/images/platforms/zisign-logo.png",
+    logo: assetPath("images/platforms/zisign-logo.png"),
     logoClassName: "max-h-12 max-w-full object-contain",
     description: "Solução de assinatura digital e eletrônica integrada aos fluxos financeiros.",
   },
@@ -96,7 +97,7 @@ const platforms = [
     name: "Portal IDSF",
     domain: "idsf.com.br",
     url: "https://idsf.com.br",
-    logo: "/images/platforms/portal-idsf-logo.png",
+    logo: assetPath("images/platforms/portal-idsf-logo.png"),
     logoClassName: "max-h-9 max-w-full object-contain",
     description: "Portal para relacionamento, operação e acesso a serviços financeiros.",
   },
@@ -176,7 +177,7 @@ function Header() {
             className="flex items-center"
             onClick={() => navigateToHomeSection()}
           >
-            <img src="/images/zitec-logo.png" alt="Zitec" className="h-11 w-auto md:h-14" />
+            <img src={assetPath("images/zitec-logo.png")} alt="Zitec" className="h-11 w-auto md:h-14" />
           </button>
 
           <nav className="hidden items-center gap-7 md:flex">
@@ -276,7 +277,7 @@ function Hero() {
           <MotionReveal delay={90}>
             <h1 className="mt-6">
               <img
-                src="/images/zitec-logo-hero.png"
+                src={assetPath("images/zitec-logo-hero.png")}
                 alt="Zitec"
                 className="hero-brand-logo"
                 width={774}
@@ -618,7 +619,7 @@ function Footer() {
   return (
     <footer className="border-t border-white/10 bg-primary-dark py-8 text-white">
       <div className="container flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        <img src="/images/zitec-logo.png" alt="Zitec" className="h-12 w-fit brightness-0 invert" />
+        <img src={assetPath("images/zitec-logo.png")} alt="Zitec" className="h-12 w-fit brightness-0 invert" />
         <nav className="flex flex-wrap gap-x-6 gap-y-2">
           {navItems.slice(0, 3).map((item) => (
             <button
