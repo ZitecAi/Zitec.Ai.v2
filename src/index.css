@@ -123,8 +123,109 @@
     transform: scale(1.02);
   }
 
+  .platform-logo-marquee-panel {
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  }
+
+  .platform-logo-marquee {
+    display: flex;
+    width: max-content;
+    gap: 1.25rem;
+    animation: platform-logo-marquee 22s linear infinite;
+    will-change: transform;
+  }
+
+  .platform-logo-marquee-card {
+    display: flex;
+    height: 6.5rem;
+    width: 15rem;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    background: hsl(0 0% 100%);
+    padding: 1rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .platform-logo-marquee-card .platform-logo-filter {
+    max-height: 4.5rem;
+    max-width: 100%;
+    opacity: 0.9;
+  }
+
+  .platform-logo-marquee-card .platform-wordmark {
+    font-size: 1.55rem;
+  }
+
+  .platform-category {
+    display: grid;
+    gap: 0;
+    overflow: hidden;
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.5rem;
+    background: hsl(var(--card));
+    box-shadow: var(--shadow-md);
+  }
+
+  .platform-category-media {
+    min-height: 17rem;
+    background: hsl(var(--muted));
+  }
+
+  .platform-category-media img {
+    height: 100%;
+    min-height: 17rem;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .platform-category-content {
+    display: flex;
+    min-height: 17rem;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .platform-category-feature {
+    display: flex;
+    min-height: 4.5rem;
+    align-items: flex-start;
+    gap: 0.625rem;
+    border-left: 2px solid hsl(var(--accent) / 0.65);
+    background: hsl(var(--muted) / 0.6);
+    padding: 0.875rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: hsl(var(--foreground));
+  }
+
   .social-link {
     @apply inline-flex h-10 w-10 items-center justify-center rounded-md bg-primary text-primary-foreground transition hover:bg-primary-hover;
+  }
+}
+
+@media (min-width: 1024px) {
+  .platform-category {
+    grid-template-columns: minmax(0, 0.46fr) minmax(0, 0.54fr);
+  }
+
+  .platform-category-content {
+    padding: 2.5rem;
+  }
+}
+
+@keyframes platform-logo-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(calc(-50% - 0.625rem), 0, 0);
   }
 }
 
@@ -262,5 +363,10 @@
     filter: none;
     transform: none;
     transition: none;
+  }
+
+  .platform-logo-marquee {
+    animation: none;
+    transform: none;
   }
 }

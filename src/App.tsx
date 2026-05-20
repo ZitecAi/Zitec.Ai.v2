@@ -7,7 +7,6 @@ import {
   Building2,
   CheckCircle2,
   DatabaseZap,
-  ExternalLink,
   FileCheck2,
   FileSignature,
   Instagram,
@@ -46,6 +45,16 @@ type Platform = {
   logoClassName?: string;
   logoText?: string;
   status?: string;
+};
+
+type PlatformCategory = {
+  title: string;
+  eyebrow: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  features: string[];
+  url?: string;
 };
 
 const services = [
@@ -105,14 +114,6 @@ const platforms: Platform[] = [
     description: "Solução de assinatura digital e eletrônica integrada aos fluxos financeiros.",
   },
   {
-    name: "Portal IDSF",
-    domain: "idsf.com.br",
-    url: "https://idsf.com.br",
-    logo: assetPath("images/platforms/portal-idsf-logo.png"),
-    logoClassName: "max-h-9 max-w-full object-contain",
-    description: "Portal para relacionamento, operação e acesso a serviços financeiros.",
-  },
-  {
     name: "ZiFlow",
     domain: "ziflow.zitec.ai",
     url: "https://ziflow.zitec.ai/",
@@ -128,12 +129,64 @@ const platforms: Platform[] = [
     logoClassName: "max-h-14 max-w-full object-contain",
     description: "Plataforma para governança de votações, deliberações e assembleias digitais.",
   },
+];
+
+const platformCategories: PlatformCategory[] = [
   {
-    name: "Zitec IA",
-    domain: "zitec-ia",
-    logoText: "Zitec IA",
-    status: "Em desenvolvimento",
-    description: "Nova plataforma de inteligência artificial da Zitec, atualmente em desenvolvimento.",
+    title: "ZiSIGN",
+    eyebrow: "Assinatura digital",
+    image: assetPath("images/platforms/zisign-room.png"),
+    imageAlt: "Ambiente da plataforma ZiSign",
+    url: "https://zisign.ai",
+    description:
+      "Solução para assinar documentos digitalmente com validade jurídica, segurança e rapidez, centralizando o fluxo de formalização em uma experiência operacional simples.",
+    features: ["Assinatura digital segura", "Validade jurídica", "Formalização rápida de documentos"],
+  },
+  {
+    title: "ZiVOTE",
+    eyebrow: "Votação eletrônica",
+    image: assetPath("images/platforms/zivote-room.png"),
+    imageAlt: "Ambiente da plataforma ZiVote",
+    url: "https://zivote.ai",
+    description:
+      "Plataforma de voto eletrônico para assembleias, com uma experiência simples e intuitiva para gerenciar deliberações com segurança e trilha de auditoria.",
+    features: ["Voto eletrônico para assembleias", "Trilha de auditoria", "Gestão prática e segura"],
+  },
+  {
+    title: "ZiBANK",
+    eyebrow: "Operação bancária",
+    image: assetPath("images/platforms/zibank-room.png"),
+    imageAlt: "Ambiente da plataforma ZiBank",
+    description:
+      "Apoia rotinas bancárias, integrações financeiras e acompanhamento de operações com uma visão organizada dos processos críticos.",
+    features: ["Processamento operacional", "Integrações financeiras", "Controle de eventos e transações"],
+  },
+  {
+    title: "ZiGESTÃO",
+    eyebrow: "Gestão operacional",
+    image: assetPath("images/platforms/zigestão-room.png"),
+    imageAlt: "Ambiente da plataforma ZiGestão",
+    description:
+      "Organiza a gestão de fundos, rotinas administrativas e informações operacionais em uma camada de controle para equipes internas.",
+    features: ["Gestão de fundos", "Acompanhamento de indicadores", "Governança de informações operacionais"],
+  },
+  {
+    title: "ZiFLOW",
+    eyebrow: "Automação de processos",
+    image: assetPath("images/platforms/ziflow-room.png"),
+    imageAlt: "Ambiente da plataforma ZiFlow",
+    description:
+      "Estrutura fluxos, aprovações e etapas de trabalho para reduzir tarefas manuais e dar visibilidade ao andamento das demandas.",
+    features: ["Fluxos configuráveis", "Aprovações e responsáveis", "Monitoramento de pendências"],
+  },
+  {
+    title: "ZiCUSTÓDIA",
+    eyebrow: "Custódia e controle",
+    image: assetPath("images/platforms/zicustodia-room.png"),
+    imageAlt: "Ambiente da plataforma ZiCustódia",
+    description:
+      "Reúne dados de custódia, conciliações e acompanhamento de ativos para dar mais precisão às rotinas de controle financeiro.",
+    features: ["Controle de custódia", "Conciliação de informações", "Rastreabilidade de ativos"],
   },
 ];
 
@@ -260,69 +313,68 @@ function Header() {
   );
 }
 
-function PlatformLogo({ platform, compact = false }: { platform: Platform; compact?: boolean }) {
+function PlatformLogo({
+  platform,
+  compact = false,
+  large = false,
+}: {
+  platform: Platform;
+  compact?: boolean;
+  large?: boolean;
+}) {
   if (platform.logo) {
     return (
       <img
         src={platform.logo}
         alt={`Logo ${platform.name}`}
-        className={`${platform.logoClassName ?? "max-h-10 max-w-full object-contain"} platform-logo-filter`}
+        className={`${large ? "max-h-[4.5rem] max-w-full object-contain" : platform.logoClassName ?? "max-h-10 max-w-full object-contain"} platform-logo-filter`}
         loading="lazy"
       />
     );
   }
 
   return (
-    <span className={`platform-wordmark platform-logo-filter ${compact ? "text-lg" : "text-xl"}`}>
+    <span className={`platform-wordmark platform-logo-filter ${large ? "text-[1.55rem]" : compact ? "text-lg" : "text-xl"}`}>
       {platform.logoText ?? platform.name}
     </span>
   );
 }
 
-function PlatformCard({ platform, index = 0 }: { platform: Platform; index?: number }) {
-  const content = (
-    <>
-      <div className="mb-6 flex items-start justify-between gap-5">
-        <div className="flex h-16 w-40 max-w-full items-center justify-center rounded-lg bg-white px-4 shadow-sm">
-          <PlatformLogo platform={platform} />
-        </div>
-        {platform.url ? (
-          <ExternalLink className="h-4 w-4 text-muted-foreground transition group-hover:text-accent" />
-        ) : (
-          <span className="rounded-full bg-muted px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-            Em desenvolvimento
-          </span>
-        )}
-      </div>
-      <p className="text-sm leading-6 text-muted-foreground">{platform.description}</p>
-      <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary transition group-hover:text-accent">
-        {platform.url ? "Acessar plataforma" : platform.status}
-        {platform.url && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
-      </div>
-    </>
-  );
-
-  const cardClassName = `group block h-full rounded-lg border border-border bg-card p-6 text-card-foreground shadow-md transition duration-300 ${
-    platform.url ? "hover:-translate-y-1 hover:border-accent/70 hover:shadow-xl" : "cursor-default opacity-90"
-  }`;
+function PlatformCategoryBlock({ category, index }: { category: PlatformCategory; index: number }) {
+  const imageFirst = index % 2 === 0;
 
   return (
     <MotionReveal delay={index * 90} effect="up">
-      {platform.url ? (
-        <a
-          href={platform.url}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`Acessar ${platform.name}`}
-          className={cardClassName}
-        >
-          {content}
-        </a>
-      ) : (
-        <div aria-label={`${platform.name} em desenvolvimento`} className={cardClassName}>
-          {content}
+      <article className="platform-category">
+        <div className={`platform-category-media ${imageFirst ? "" : "lg:order-2"}`}>
+          <img src={category.image} alt={category.imageAlt} loading="lazy" />
         </div>
-      )}
+        <div className="platform-category-content">
+          <div className="section-kicker">{category.eyebrow}</div>
+          <h2 className="mt-3 text-3xl font-semibold leading-tight text-foreground md:text-4xl">
+            {category.title}
+          </h2>
+          <p className="mt-4 text-base leading-7 text-muted-foreground md:text-lg md:leading-8">
+            {category.description}
+          </p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            {category.features.map((feature) => (
+              <div key={feature} className="platform-category-feature">
+                <CheckCircle2 className="h-4 w-4 text-accent" />
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+          {category.url && (
+            <Button asChild className="mt-7 w-fit">
+              <a href={category.url} target="_blank" rel="noreferrer">
+                Visitar plataforma
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </Button>
+          )}
+        </div>
+      </article>
     </MotionReveal>
   );
 }
@@ -461,32 +513,23 @@ function InfrastructureSection() {
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </div>
-              <div className="grid grid-cols-2 items-center gap-4 border-t border-border bg-primary/5 p-6 md:grid-cols-3 md:p-8 lg:border-l lg:border-t-0">
-                {platforms.map((platform) => (
-                  platform.url ? (
-                    <a
-                      key={platform.domain}
-                      href={platform.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`Acessar ${platform.name}`}
-                      className="group flex h-16 w-full items-center justify-center rounded-lg bg-white px-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-                    >
-                      <PlatformLogo platform={platform} compact />
-                    </a>
-                  ) : (
+              <div className="platform-logo-marquee-panel relative flex items-center overflow-hidden border-t border-border bg-primary/5 py-8 lg:border-l lg:border-t-0">
+                <div className="platform-logo-marquee" aria-label="Plataformas Zitec">
+                  {[...platforms, ...platforms].map((platform, index) => (
                     <div
-                      key={platform.domain}
-                      aria-label={`${platform.name} em desenvolvimento`}
-                      className="flex h-16 w-full flex-col items-center justify-center rounded-lg bg-white px-3 shadow-sm"
+                      key={`${platform.domain}-${index}`}
+                      aria-hidden={index >= platforms.length}
+                      className="platform-logo-marquee-card"
                     >
-                      <PlatformLogo platform={platform} compact />
-                      <span className="mt-1 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
-                        Em desenvolvimento
-                      </span>
+                      <PlatformLogo platform={platform} large />
+                      {!platform.url && (
+                        <span className="mt-2 text-[0.64rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                          Em desenvolvimento
+                        </span>
+                      )}
                     </div>
-                  )
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </Card>
@@ -614,9 +657,9 @@ function PlatformsPage() {
 
         <section className="section-spacing bg-background">
           <div className="container">
-            <div className="grid gap-5 md:grid-cols-3">
-              {platforms.map((platform, index) => (
-                <PlatformCard key={platform.domain} platform={platform} index={index} />
+            <div className="space-y-8">
+              {platformCategories.map((category, index) => (
+                <PlatformCategoryBlock key={category.title} category={category} index={index} />
               ))}
             </div>
           </div>
