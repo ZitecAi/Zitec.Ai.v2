@@ -373,6 +373,12 @@ function PlatformCategoryBlock({ category, index }: { category: PlatformCategory
               </a>
             </Button>
           )}
+          {!category.url && (
+            <Button className="mt-7 w-fit" onClick={() => navigateToHomeSection("contato")}>
+              Entrar em contato
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          )}
         </div>
       </article>
     </MotionReveal>
@@ -767,7 +773,7 @@ function Footer() {
             </button>
           ))}
         </nav>
-        <p className="text-sm text-white/60">© 2025 ZITEC. Todos os Direitos Reservados.</p>
+        <p className="text-sm text-white/60">© 2026 ZiTEC - Zielo Tecnologia LTDA. Todos os Direitos Reservados.</p>
       </div>
     </footer>
   );
