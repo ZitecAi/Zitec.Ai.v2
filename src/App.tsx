@@ -461,7 +461,7 @@ function InfrastructureSection() {
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </div>
-              <div className="flex flex-wrap items-center gap-4 border-t border-border bg-primary/5 p-6 md:p-8 lg:border-l lg:border-t-0">
+              <div className="grid grid-cols-2 items-center gap-4 border-t border-border bg-primary/5 p-6 md:grid-cols-3 md:p-8 lg:border-l lg:border-t-0">
                 {platforms.map((platform) => (
                   platform.url ? (
                     <a
@@ -470,7 +470,7 @@ function InfrastructureSection() {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={`Acessar ${platform.name}`}
-                      className="group flex h-16 w-32 items-center justify-center rounded-lg bg-white px-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                      className="group flex h-16 w-full items-center justify-center rounded-lg bg-white px-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
                     >
                       <PlatformLogo platform={platform} compact />
                     </a>
@@ -478,7 +478,7 @@ function InfrastructureSection() {
                     <div
                       key={platform.domain}
                       aria-label={`${platform.name} em desenvolvimento`}
-                      className="flex h-16 w-32 flex-col items-center justify-center rounded-lg bg-white px-3 shadow-sm"
+                      className="flex h-16 w-full flex-col items-center justify-center rounded-lg bg-white px-3 shadow-sm"
                     >
                       <PlatformLogo platform={platform} compact />
                       <span className="mt-1 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
