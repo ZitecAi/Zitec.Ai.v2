@@ -37,6 +37,17 @@ const navItems = [
 
 const PLATFORMS_PATH = "/plataformas";
 
+type Platform = {
+  name: string;
+  domain: string;
+  description: string;
+  url?: string;
+  logo?: string;
+  logoClassName?: string;
+  logoText?: string;
+  status?: string;
+};
+
 const services = [
   {
     icon: DatabaseZap,
@@ -76,7 +87,7 @@ const services = [
   },
 ];
 
-const platforms = [
+const platforms: Platform[] = [
   {
     name: "ZiGestão",
     domain: "zigestao.zitec.ai",
@@ -100,6 +111,29 @@ const platforms = [
     logo: assetPath("images/platforms/portal-idsf-logo.png"),
     logoClassName: "max-h-9 max-w-full object-contain",
     description: "Portal para relacionamento, operação e acesso a serviços financeiros.",
+  },
+  {
+    name: "ZiFlow",
+    domain: "ziflow.zitec.ai",
+    url: "https://ziflow.zitec.ai/",
+    logo: assetPath("images/platforms/ziflow-logo.png"),
+    logoClassName: "max-h-14 max-w-full object-contain",
+    description: "Plataforma para automação de fluxos operacionais, aprovações e processos financeiros.",
+  },
+  {
+    name: "ZiVote",
+    domain: "zivote.ai",
+    url: "https://zivote.ai",
+    logo: assetPath("images/platforms/zivote-logo.png"),
+    logoClassName: "max-h-14 max-w-full object-contain",
+    description: "Plataforma para governança de votações, deliberações e assembleias digitais.",
+  },
+  {
+    name: "Zitec IA",
+    domain: "zitec-ia",
+    logoText: "Zitec IA",
+    status: "Em desenvolvimento",
+    description: "Nova plataforma de inteligência artificial da Zitec, atualmente em desenvolvimento.",
   },
 ];
 
@@ -226,33 +260,69 @@ function Header() {
   );
 }
 
-function PlatformCard({ platform, index = 0 }: { platform: (typeof platforms)[number]; index?: number }) {
+function PlatformLogo({ platform, compact = false }: { platform: Platform; compact?: boolean }) {
+  if (platform.logo) {
+    return (
+      <img
+        src={platform.logo}
+        alt={`Logo ${platform.name}`}
+        className={`${platform.logoClassName ?? "max-h-10 max-w-full object-contain"} platform-logo-filter`}
+        loading="lazy"
+      />
+    );
+  }
+
+  return (
+    <span className={`platform-wordmark platform-logo-filter ${compact ? "text-lg" : "text-xl"}`}>
+      {platform.logoText ?? platform.name}
+    </span>
+  );
+}
+
+function PlatformCard({ platform, index = 0 }: { platform: Platform; index?: number }) {
+  const content = (
+    <>
+      <div className="mb-6 flex items-start justify-between gap-5">
+        <div className="flex h-16 w-40 max-w-full items-center justify-center rounded-lg bg-white px-4 shadow-sm">
+          <PlatformLogo platform={platform} />
+        </div>
+        {platform.url ? (
+          <ExternalLink className="h-4 w-4 text-muted-foreground transition group-hover:text-accent" />
+        ) : (
+          <span className="rounded-full bg-muted px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+            Em desenvolvimento
+          </span>
+        )}
+      </div>
+      <p className="text-sm leading-6 text-muted-foreground">{platform.description}</p>
+      <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary transition group-hover:text-accent">
+        {platform.url ? "Acessar plataforma" : platform.status}
+        {platform.url && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
+      </div>
+    </>
+  );
+
+  const cardClassName = `group block h-full rounded-lg border border-border bg-card p-6 text-card-foreground shadow-md transition duration-300 ${
+    platform.url ? "hover:-translate-y-1 hover:border-accent/70 hover:shadow-xl" : "cursor-default opacity-90"
+  }`;
+
   return (
     <MotionReveal delay={index * 90} effect="up">
-      <a
-        href={platform.url}
-        target="_blank"
-        rel="noreferrer"
-        aria-label={`Acessar ${platform.name}`}
-        className="group block h-full rounded-lg border border-border bg-card p-6 text-card-foreground shadow-md transition duration-300 hover:-translate-y-1 hover:border-accent/70 hover:shadow-xl"
-      >
-        <div className="mb-6 flex items-start justify-between gap-5">
-          <div className="flex h-16 w-40 max-w-full items-center justify-center rounded-lg bg-white px-4 shadow-sm">
-            <img
-              src={platform.logo}
-              alt={`Logo ${platform.name}`}
-              className={`${platform.logoClassName} platform-logo-filter`}
-              loading="lazy"
-            />
-          </div>
-          <ExternalLink className="h-4 w-4 text-muted-foreground transition group-hover:text-accent" />
+      {platform.url ? (
+        <a
+          href={platform.url}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Acessar ${platform.name}`}
+          className={cardClassName}
+        >
+          {content}
+        </a>
+      ) : (
+        <div aria-label={`${platform.name} em desenvolvimento`} className={cardClassName}>
+          {content}
         </div>
-        <p className="text-sm leading-6 text-muted-foreground">{platform.description}</p>
-        <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary transition group-hover:text-accent">
-          Acessar plataforma
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-        </div>
-      </a>
+      )}
     </MotionReveal>
   );
 }
@@ -393,9 +463,29 @@ function InfrastructureSection() {
               </div>
               <div className="flex flex-wrap items-center gap-4 border-t border-border bg-primary/5 p-6 md:p-8 lg:border-l lg:border-t-0">
                 {platforms.map((platform) => (
-                  <div key={platform.domain} className="flex h-16 w-32 items-center justify-center rounded-lg bg-white px-3 shadow-sm">
-                    <img src={platform.logo} alt={`Logo ${platform.name}`} className={platform.logoClassName} loading="lazy" />
-                  </div>
+                  platform.url ? (
+                    <a
+                      key={platform.domain}
+                      href={platform.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Acessar ${platform.name}`}
+                      className="group flex h-16 w-32 items-center justify-center rounded-lg bg-white px-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                    >
+                      <PlatformLogo platform={platform} compact />
+                    </a>
+                  ) : (
+                    <div
+                      key={platform.domain}
+                      aria-label={`${platform.name} em desenvolvimento`}
+                      className="flex h-16 w-32 flex-col items-center justify-center rounded-lg bg-white px-3 shadow-sm"
+                    >
+                      <PlatformLogo platform={platform} compact />
+                      <span className="mt-1 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                        Em desenvolvimento
+                      </span>
+                    </div>
+                  )
                 ))}
               </div>
             </div>

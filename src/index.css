@@ -107,6 +107,16 @@
       transform 0.3s ease;
   }
 
+  .platform-wordmark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: hsl(var(--primary));
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
   .group:hover .platform-logo-filter {
     filter: grayscale(0) saturate(1) contrast(1);
     opacity: 1;
