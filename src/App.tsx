@@ -283,7 +283,6 @@ function Hero() {
                 width={774}
                 height={583}
                 decoding="async"
-                fetchPriority="high"
               />
             </h1>
           </MotionReveal>
