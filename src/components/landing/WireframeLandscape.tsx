@@ -9,9 +9,7 @@ interface WireframeLandscapeProps {
 export function WireframeLandscape({ className, compact = false }: WireframeLandscapeProps) {
   return (
     <div className={cn("wireframe-landscape", compact && "wireframe-landscape-compact", className)} aria-hidden="true">
-      <video className="wireframe-image" autoPlay muted loop playsInline preload="auto">
-        <source src={assetPath("images/zisign-logo.webm")} type="video/webm" />
-      </video>
+      <video className="wireframe-image" src={assetPath("images/zisign-logo.webm")} autoPlay muted loop playsInline preload="auto" />
       <div className="wireframe-color" />
     </div>
   );
