@@ -166,8 +166,8 @@
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  filter: sepia(1) saturate(3.6) hue-rotate(52deg) brightness(0.95) contrast(1.18);
-  opacity: 0.9;
+  filter: sepia(1) saturate(3.9) hue-rotate(52deg) brightness(1.14) contrast(1.24);
+  opacity: 0.96;
   mix-blend-mode: lighten;
   transform: scale(1.18);
 }
